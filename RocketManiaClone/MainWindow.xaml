@@ -1,0 +1,823 @@
+﻿<Window x:Class="RocketManiaClone.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RocketManiaClone"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:winForms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        mc:Ignorable="d"
+        Name="mainWindow" Title="Rocket Mania Clone" WindowState="Maximized" Height="450" Width="800" Background="Gray">
+    <!-- It is necessary to initialise Tag property with a double value in order to be able to double animate it. -->
+    <Window.Tag>
+        <sys:Double>0</sys:Double>
+    </Window.Tag>
+
+    <Grid Name="rootGrid" Width="1440" Height="894" ClipToBounds="True" Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+        <Grid.Tag>
+            <sys:Double>0</sys:Double>
+        </Grid.Tag>
+        <Grid.RenderTransform>
+            <ScaleTransform ScaleX="-1" />
+        </Grid.RenderTransform>
+
+        <StackPanel Name="boardPanel" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,-1000,0" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.Tag>
+                <sys:Boolean>True</sys:Boolean>
+            </StackPanel.Tag>
+            <StackPanel.RenderTransform>
+                <ScaleTransform ScaleY="-1"/>
+            </StackPanel.RenderTransform>
+
+            <StackPanel>
+                <Border Name="header_0" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_00" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_10" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_20" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_30" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_40" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_50" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_60" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_70" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_80" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="tile_90" Style="{DynamicResource TileFauxStyle}" />
+                <Border Name="footer_0" Style="{DynamicResource TileFauxStyle}" />
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_1" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_01" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_11" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_21" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_31" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_41" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_51" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_61" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_71" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_81" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_91" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_1" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_2" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_02" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_12" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_22" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_32" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_42" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_52" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_62" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_72" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_82" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_92" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_2" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_3" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_03" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_13" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_23" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_33" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_43" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_53" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_63" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_73" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_83" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_93" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_3" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_4" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_04" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_14" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_24" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_34" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_44" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_54" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_64" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_74" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_84" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_94" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_4" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_5" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_05" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_15" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_25" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_35" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_45" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_55" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_65" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_75" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_85" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_95" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_5" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_6" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_06" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_16" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_26" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_36" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_46" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_56" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_66" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_76" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_86" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_96" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_6" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_7" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_07" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_17" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_27" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_37" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_47" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_57" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_67" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_77" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_87" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_97" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_7" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_8" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_08" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_18" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_28" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_38" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_48" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_58" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_68" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_78" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_88" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="tile_98" Style="{DynamicResource TileStyle}" MouseLeftButtonUp="TileMouseLeftButtonUp">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+                <Border Name="footer_8" Style="{DynamicResource TileOuterStyle}">
+                    <Border Style="{DynamicResource TileInnerStyle}">
+                        <Border.RenderTransform>
+                            <RotateTransform Angle="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=Tag}" />
+                        </Border.RenderTransform>
+                    </Border>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <Border Name="header_9" Style="{DynamicResource TileOuterStyle}" />
+                <Border Name="tile_09" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_0" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_19" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_1" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_29" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_2" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_39" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_3" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_49" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_4" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_59" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_5" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_69" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_6" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_79" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_7" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_89" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_8" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="tile_99" Style="{DynamicResource TileOuterStyle}">
+                    <wfi:WindowsFormsHost Width="72" Height="72">
+                        <winForms:PictureBox x:Name="pictureBox_9" Width="72" Height="72" SizeMode="StretchImage" />
+                    </wfi:WindowsFormsHost>
+                </Border>
+                <Border Name="footer_9" Style="{DynamicResource TileOuterStyle}" />
+            </StackPanel>
+        </StackPanel>
+
+        <Border Name="rocket_9" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,67,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_8" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,139,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_7" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,211,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_6" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,283,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_5" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,355,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_4" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,427,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_3" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,499,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_2" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,571,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_1" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,643,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+        <Border Name="rocket_0" Style="{DynamicResource RocketBorderStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,715,0,0">
+            <Border.Tag>
+                <sys:Double>566</sys:Double>
+            </Border.Tag>
+            <Image Style="{DynamicResource RocketImageStyle}" />
+        </Border>
+
+        <Rectangle Width="720" Height="102" Fill="Black" VerticalAlignment="Top" HorizontalAlignment="Right" />
+
+        <Border Name="modalBorder" Width="{Binding RelativeSource={RelativeSource Self}, Path=Parent.Width}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Parent.Height}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" IsHitTestVisible="True">
+            <Button Width="120" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Start game" Background="White" BorderThickness="0" Foreground="Black" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" Click="StartButton_Click">
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="-1" />
+                </Button.RenderTransform>
+            </Button>
+        </Border>
+    </Grid>
+</Window>
