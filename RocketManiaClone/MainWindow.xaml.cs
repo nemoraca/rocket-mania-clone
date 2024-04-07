@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 
 namespace RocketManiaClone
 {
@@ -49,11 +48,15 @@ namespace RocketManiaClone
         private readonly List<int> rocketsToLaunch = new List<int>();
         private readonly List<int> firesToIgnite = new List<int>();
         private readonly bool[,] isGreen = new bool[10, 10];
-        private int rocketsFadingInTilesFalling = 0;
+        private int animatedInt;
+        private int rocketsFadingInTilesFalling;
+        private bool rocketsAnimationOn = false;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            CompositionTarget.Rendering += AnimateRockets;
 
             rockets = new Border[] { rocket_0, rocket_1, rocket_2, rocket_3, rocket_4, rocket_5, rocket_6, rocket_7, rocket_8, rocket_9 };
             footerTiles = new Border[] { footer_0, footer_1, footer_2, footer_3, footer_4, footer_5, footer_6, footer_7, footer_8, footer_9 };
@@ -334,8 +337,7 @@ namespace RocketManiaClone
 
         private async void LaunchRockets()
         {
-            int d = 0;
-            double l;
+            animatedInt = 0;
             rocketsFadingInTilesFalling = 0;
             await PaintTilesGreen();
             foreach (int n in rocketsToLaunch)
@@ -343,44 +345,45 @@ namespace RocketManiaClone
                 rockets[n / 10].Style = (Style)System.Windows.Application.Current.Resources["FlyingRocketBorderStyle"];
                 ((Image)rockets[n / 10].Child).Source = (BitmapImage)System.Windows.Application.Current.Resources["Rocket1"];
             }
-            DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.01) };
-            timer.Tick += (object sender, EventArgs args) =>
+            rocketsAnimationOn = true;
+        }
+
+        private void AnimateRockets(object sender, EventArgs args)
+        {
+            if (!rocketsAnimationOn)
+                return;
+            animatedInt += 10;
+            foreach (int n in rocketsToLaunch)
             {
-                d += 10;
-                l = 566.0 - Math.Max(0, d - 400);
+                rockets[n / 10].Tag = 566.0 - Math.Max(0, animatedInt - 400);
+                if (animatedInt % 100 == 0)
+                    ((Image)rockets[n / 10].Child).Source = (BitmapImage)System.Windows.Application.Current.Resources[string.Format("Rocket{0}", (animatedInt / 100) % 2 + 1)];
+            }
+            if (animatedInt > 1250)
+            {
+                rocketsAnimationOn = false;
+                DoubleAnimation opacityAnimation = new DoubleAnimation { From = 0.0, To = 1.0, By = 0.1 };
+                opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
+                opacityAnimation.Completed += (object s, EventArgs e) =>
+                {
+                    foreach (int n in rocketsToLaunch)
+                        ((Image)rockets[n / 10].Child).Style = (Style)System.Windows.Application.Current.Resources["RocketImageStyle"];
+                    rootGrid.BeginAnimation(Grid.TagProperty, null);
+                    ++rocketsFadingInTilesFalling;
+                    if (rocketsFadingInTilesFalling == 2)
+                        PostInitialiseTiles();
+                };
                 foreach (int n in rocketsToLaunch)
                 {
-                    rockets[n / 10].Tag = l;
-                    if (d % 100 == 0)
-                        ((Image)rockets[n / 10].Child).Source = (BitmapImage)System.Windows.Application.Current.Resources[string.Format("Rocket{0}", (d / 100) % 2 + 1)];
+                    rockets[n / 10].Style = (Style)System.Windows.Application.Current.Resources["RocketBorderStyle"];
+                    ((Image)rockets[n / 10].Child).Style = (Style)System.Windows.Application.Current.Resources["RocketFadeInImageStyle"];
+                    ((Image)rockets[n / 10].Child).ClearValue(Image.SourceProperty);
+                    rockets[n / 10].Tag = 566.0;
                 }
-                if (d > 1250)
-                {
-                    timer.Stop();
-                    DoubleAnimation opacityAnimation = new DoubleAnimation { From = 0.0, To = 1.0, By = 0.1 };
-                    opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
-                    opacityAnimation.Completed += (object s, EventArgs e) =>
-                    {
-                        foreach (int n in rocketsToLaunch)
-                            ((Image)rockets[n / 10].Child).Style = (Style)System.Windows.Application.Current.Resources["RocketImageStyle"];
-                        rootGrid.BeginAnimation(Grid.TagProperty, null);
-                        ++rocketsFadingInTilesFalling;
-                        if (rocketsFadingInTilesFalling == 2)
-                            PostInitialiseTiles();
-                    };
-                    foreach (int n in rocketsToLaunch)
-                    {
-                        rockets[n / 10].Style = (Style)System.Windows.Application.Current.Resources["RocketBorderStyle"];
-                        ((Image)rockets[n / 10].Child).Style = (Style)System.Windows.Application.Current.Resources["RocketFadeInImageStyle"];
-                        ((Image)rockets[n / 10].Child).ClearValue(Image.SourceProperty);
-                        rockets[n / 10].Tag = 566.0;
-                    }
-                    rootGrid.BeginAnimation(Grid.TagProperty, opacityAnimation);                    
-                    TilesFalling(App.Ar(9, 9, 9, 9, 9, 9, 9, 9));                    
-                }
-            };
 
-            timer.Start();
+                rootGrid.BeginAnimation(Grid.TagProperty, opacityAnimation);
+                TilesFalling(App.Ar(9, 9, 9, 9, 9, 9, 9, 9));
+            }
         }
 
         private async void TilesFalling(int[] fallingTiles)
