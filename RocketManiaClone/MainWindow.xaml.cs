@@ -47,7 +47,7 @@ namespace RocketManiaClone
         private readonly Dictionary<String, int> graphMatrixDict = new Dictionary<string, int>();
         private readonly List<int> rocketsToLaunch = new List<int>();
         private readonly List<int> firesToIgnite = new List<int>();
-        private readonly bool[,] isGreen = new bool[10, 10];
+        private BoolArray isGreen = new BoolArray(100);
         private int animatedInt;
         private int rocketsFadingInTilesFalling;
         private bool rocketsAnimationOn = false;
@@ -284,12 +284,11 @@ namespace RocketManiaClone
         {
             int[] neighboursOfThese;
             List<int> additionalGreenTiles = new List<int>();
-            bool[] additionalGreenTilesPredicate = new bool[100];
+            BoolArray additionalGreenTilesPredicate = new BoolArray(100);
             Border border;
 
-            for (int i = 0; i < 10; ++i)
-                for (int j = 0; j < 10; ++j)
-                    isGreen[i, j] = false;
+            for (int i = 0; i < 100; ++i)
+                isGreen[i] = false;
 
             foreach (int n in firesToIgnite)
                 additionalGreenTiles.Add(n - 1);
@@ -303,8 +302,7 @@ namespace RocketManiaClone
                     if (border != null)
                     {
                         border.Background = Brushes.LightGreen;
-                        int l = n % 10;
-                        isGreen[(n - l) / 10, l] = true;
+                        isGreen[n] = true;
                     }
                 }
                 await Task.Delay(50);
@@ -322,7 +320,7 @@ namespace RocketManiaClone
                         a = i + pair.First;
                         b = j + pair.Second;
                         int m = 10 * a + b;
-                        if (a >= 0 && a <= 9 && b > 0 && b < 9 && !isGreen[a, b] && this.GraphMatrix(m, n) == 1)
+                        if (a >= 0 && a <= 9 && b > 0 && b < 9 && !isGreen[m] && this.GraphMatrix(m, n) == 1)
                             additionalGreenTilesPredicate[m] = true;
                     }
                 }
@@ -397,12 +395,12 @@ namespace RocketManiaClone
             }
             Border[] borders = new Border[8];
             for (int i = 0; i < fallingTiles.Length; ++i)
-                while (fallingTiles[i] >= 0 && !isGreen[fallingTiles[i], i + 1])
+                while (fallingTiles[i] >= 0 && !isGreen[10 * fallingTiles[i] + i + 1])
                     --fallingTiles[i];
             for (int i = 0; i < fallingTiles.Length; ++i)
                 if (fallingTiles[i] >= 0)
                 {
-                    isGreen[fallingTiles[i], i + 1] = false;
+                    isGreen[10 * fallingTiles[i] + i + 1] = false;
                     Pair<FrameworkElement, double> newTile = GenerateRandomTile();
                     footerTiles[i + 1].Tag = newTile.First.GetType().Name;
                     ((Border)footerTiles[i + 1].Child).Child = newTile.First;

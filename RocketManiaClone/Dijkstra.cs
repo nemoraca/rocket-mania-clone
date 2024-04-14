@@ -12,8 +12,7 @@ namespace RocketManiaClone
             if (m < 10) s = "0" + s;
             string t = n.ToString();
             if (n < 10) t = "0" + t;
-            int value;
-            if (window.GraphMatrixDict.TryGetValue(string.Format("{0}-{1}", s, t), out value))
+            if (window.GraphMatrixDict.TryGetValue(string.Format("{0}-{1}", s, t), out int value))
                 return value;
             else
                 return 1024;
@@ -23,28 +22,30 @@ namespace RocketManiaClone
         {
             int[] dist = new int[100];
             int[] path = new int[100];
-            List<int> remaining = Enumerable.Range(0, 100).ToList();
-            remaining.Remove(start);
+            BoolArray remaining = new BoolArray(100);
+
             for (int i = 0; i < 100; ++i)
             {
                 dist[i] = window.GraphMatrix(start, i);
                 path[i] = dist[i] == 1024 ? -1 : start;
+                remaining[i] = true;
             }
+            remaining[start] = false;
             int min, next = -1;
             for (int i = 0; i < 98; ++i)
             {
                 min = 1024;
-                foreach (int j in remaining)
-                    if (dist[j] < min)
+                for (int j = 0; j < 100; ++j)
+                    if (remaining[j] && dist[j] < min)
                     {
                         min = dist[j];
                         next = j;
                     }
                 if (min == 1024) break;
-                remaining.Remove(next);
+                remaining[next] = false;
 
-                foreach (int j in remaining)
-                    if (dist[j] > dist[next] + window.GraphMatrix(next, j))
+                for (int j = 0; j < 100; ++j)
+                    if (remaining[j] && dist[j] > dist[next] + window.GraphMatrix(next, j))
                     {
                         dist[j] = dist[next] + window.GraphMatrix(next, j);
                         path[j] = next;
@@ -59,7 +60,7 @@ namespace RocketManiaClone
 
         public static List<int> Rockets(MainWindow window)
         {
-            bool[] subset = new bool[100];
+            BoolArray subset = new BoolArray(100);
             for (int i = 0; i < 10; ++i)
                 foreach (int n in Algorithm(window, 10 * i).Keys)
                     subset[n] = true;
@@ -71,7 +72,7 @@ namespace RocketManiaClone
 
         public static List<int> Fires(MainWindow window)
         {
-            bool[] subset = new bool[100];
+            BoolArray subset = new BoolArray(100);
             for (int i = 0; i < 10; ++i)
                 foreach (int n in Algorithm(window, 10 * i + 9).Keys)
                     subset[n] = true;
