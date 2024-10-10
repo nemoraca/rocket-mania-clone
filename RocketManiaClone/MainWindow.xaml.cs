@@ -44,12 +44,12 @@ namespace RocketManiaClone
         private readonly Border[] rockets;
         private readonly Border[] footerTiles;
         private readonly Border[,] tiles = new Border[10, 10];
-        private readonly Dictionary<String, int> graphMatrixDict = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> graphMatrixDict = new Dictionary<string, int>();
         private readonly List<int> rocketsToLaunch = new List<int>();
         private readonly List<int> firesToIgnite = new List<int>();
         private BoolArray isGreen = new BoolArray(100);
         private int animatedInt;
-        private int rocketsFadingInTilesFalling;
+        private byte rocketsFadingInTilesFalling;
         private bool rocketsAnimationOn = false;
 
         public MainWindow()
@@ -231,10 +231,13 @@ namespace RocketManiaClone
 
         private void TileMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
         {
-            Border border = (Border)sender;
-            int d = Convert.ToInt32((double)((Border)border.Child).Tag) % 360;
+            modalBorder.IsHitTestVisible = true;
 
-            DoubleAnimation doubleAnimation = new DoubleAnimation { From = d + 0.0, To = d + 90.0, By = 1.0 };
+            Border border = (Border)sender;
+            Border innerBorder = (Border)border.Child;
+            int d = Convert.ToInt32(innerBorder.Tag) % 360;
+
+            DoubleAnimation doubleAnimation = new DoubleAnimation { From = d, To = d + 90, By = 1 };
             doubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.2));
             doubleAnimation.Completed += (object s, EventArgs e) =>
             {
@@ -248,8 +251,8 @@ namespace RocketManiaClone
                 else
                     modalBorder.IsHitTestVisible = false;
             };
-            modalBorder.IsHitTestVisible = true;
-            ((Border)border.Child).BeginAnimation(Border.TagProperty, doubleAnimation);
+            
+            innerBorder.BeginAnimation(Border.TagProperty, doubleAnimation);
         }
 
         private void ColourTiles()
@@ -293,9 +296,9 @@ namespace RocketManiaClone
             foreach (int n in firesToIgnite)
                 additionalGreenTiles.Add(n - 1);
 
-            do
+            while (additionalGreenTiles.Count != 0)
             {
-                if (additionalGreenTiles.Count == 0) break;
+                //if (additionalGreenTiles.Count == 0) break;
                 foreach (int n in additionalGreenTiles)
                 {
                     border = GetTile(n).Child as Border;
@@ -313,7 +316,7 @@ namespace RocketManiaClone
                     int j = n % 10;
                     int i = (n - j) / 10;
                     int a, b;
-                    string key = string.Format("{0}-{1}", tiles[i, j].Tag, Convert.ToInt32((double)((Border)tiles[i, j].Child).Tag) % 360);
+                    string key = string.Format("{0}-{1}", tiles[i, j].Tag, Convert.ToInt32(((Border)tiles[i, j].Child).Tag) % 360);
                     foreach (Neighbour neighbour in dictOfNeighbours[key])
                     {
                         Pair<int, int> pair = neighboursLTRB[(int)neighbour];
@@ -330,7 +333,7 @@ namespace RocketManiaClone
                         additionalGreenTiles.Add(k);
                         additionalGreenTilesPredicate[k] = false;
                     }
-            } while (true);
+            }
         }
 
         private async void LaunchRockets()
@@ -376,7 +379,7 @@ namespace RocketManiaClone
                     rockets[n / 10].Style = (Style)System.Windows.Application.Current.Resources["RocketBorderStyle"];
                     ((Image)rockets[n / 10].Child).Style = (Style)System.Windows.Application.Current.Resources["RocketFadeInImageStyle"];
                     ((Image)rockets[n / 10].Child).ClearValue(Image.SourceProperty);
-                    rockets[n / 10].Tag = 566.0;
+                    rockets[n / 10].ClearValue(Border.TagProperty);
                 }
 
                 rootGrid.BeginAnimation(Grid.TagProperty, opacityAnimation);
@@ -386,7 +389,7 @@ namespace RocketManiaClone
 
         private async void TilesFalling(int[] fallingTiles)
         {
-            if (fallingTiles.Sum(n => n) == -8)
+            if (fallingTiles.Sum(n => n) == -fallingTiles.Length)
             {
                 ++rocketsFadingInTilesFalling;
                 if (rocketsFadingInTilesFalling == 2)

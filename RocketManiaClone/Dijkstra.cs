@@ -5,6 +5,8 @@ namespace RocketManiaClone
 {
     public static class Dijkstra
     {
+        public const int infinity = int.MaxValue / 2;
+
         public static int GraphMatrix(this MainWindow window, int m, int n)
         {
             if (m == n) return 0;
@@ -15,10 +17,10 @@ namespace RocketManiaClone
             if (window.GraphMatrixDict.TryGetValue(string.Format("{0}-{1}", s, t), out int value))
                 return value;
             else
-                return 1024;
+                return infinity;
         }
 
-        public static Dictionary<int, int> Algorithm(MainWindow window, int start)
+        public static Dictionary<int, int> Algorithm(this MainWindow window, int start)
         {
             int[] dist = new int[100];
             int[] path = new int[100];
@@ -27,21 +29,21 @@ namespace RocketManiaClone
             for (int i = 0; i < 100; ++i)
             {
                 dist[i] = window.GraphMatrix(start, i);
-                path[i] = dist[i] == 1024 ? -1 : start;
+                path[i] = dist[i] == infinity ? -1 : start;
                 remaining[i] = true;
             }
             remaining[start] = false;
             int min, next = -1;
             for (int i = 0; i < 98; ++i)
             {
-                min = 1024;
+                min = infinity;
                 for (int j = 0; j < 100; ++j)
                     if (remaining[j] && dist[j] < min)
                     {
                         min = dist[j];
                         next = j;
                     }
-                if (min == 1024) break;
+                if (min == infinity) break;
                 remaining[next] = false;
 
                 for (int j = 0; j < 100; ++j)
@@ -62,7 +64,7 @@ namespace RocketManiaClone
         {
             BoolArray subset = new BoolArray(100);
             for (int i = 0; i < 10; ++i)
-                foreach (int n in Algorithm(window, 10 * i).Keys)
+                foreach (int n in window.Algorithm(10 * i).Keys)
                     subset[n] = true;
             List<int> set = new List<int>();
             for (int j = 0; j < 100; ++j)
@@ -74,7 +76,7 @@ namespace RocketManiaClone
         {
             BoolArray subset = new BoolArray(100);
             for (int i = 0; i < 10; ++i)
-                foreach (int n in Algorithm(window, 10 * i + 9).Keys)
+                foreach (int n in window.Algorithm(10 * i + 9).Keys)
                     subset[n] = true;
             List<int> set = new List<int>();
             for (int j = 0; j < 100; ++j)

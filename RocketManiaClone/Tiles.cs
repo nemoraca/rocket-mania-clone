@@ -20,9 +20,10 @@ namespace RocketManiaClone
         {
             base.OnRender(drawingContext);
 
-            drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.DarkSeaGreen, 60), new Point(0, 0), 80, 80);
-            drawingContext.DrawEllipse(Brushes.Transparent, App.blackPen, new Point(0, 0), 50, 50);
-            drawingContext.DrawEllipse(Brushes.DarkSeaGreen, App.blackPen, new Point(0, 0), 20, 20);
+            Point origin = new Point(0, 0);
+            drawingContext.DrawEllipse(Brushes.Transparent, new Pen(Brushes.DarkSeaGreen, 60), origin, 80, 80);
+            drawingContext.DrawEllipse(Brushes.Transparent, App.blackPen, origin, 50, 50);
+            drawingContext.DrawEllipse(Brushes.DarkSeaGreen, App.blackPen, origin, 20, 20);
         }
     }
 
